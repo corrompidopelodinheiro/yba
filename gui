@@ -1,0 +1,77 @@
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "OiGui"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.DisplayOrder = 1000
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local background = Instance.new("Frame")
+background.Size = UDim2.new(1, 0, 1, 0)
+background.Position = UDim2.new(0, 0, 0, 0)
+background.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+background.BackgroundTransparency = 0
+background.Parent = screenGui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Text = "loxxy was here"
+textLabel.Size = UDim2.new(1, 0, 0.1, 0)
+textLabel.Position = UDim2.new(0, 0, 0.35, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.TextColor3 = Color3.new(1, 1, 1)
+textLabel.Font = Enum.Font.FredokaOne
+textLabel.TextScaled = true
+textLabel.Parent = background
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Text = "also im not updating this shit anymore, cya"
+textLabel.Size = UDim2.new(1, 0, 0.03, 0)
+textLabel.Position = UDim2.new(0, 0, 0.45, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.TextColor3 = Color3.new(1, 1, 1)
+textLabel.Font = Enum.Font.FredokaOne
+textLabel.TextScaled = true
+textLabel.Parent = background
+
+local laCountLabel = Instance.new("TextLabel")
+laCountLabel.Size = UDim2.new(1, 0, 0.05, 0)
+laCountLabel.Position = UDim2.new(0, 0, 0.55, 0)
+laCountLabel.BackgroundTransparency = 1
+laCountLabel.TextColor3 = Color3.new(1, 1, 1)
+laCountLabel.Font = Enum.Font.FredokaOne
+laCountLabel.TextScaled = true
+laCountLabel.Parent = background
+
+local moneyCuntLabel = Instance.new("TextLabel")
+moneyCuntLabel.Size = UDim2.new(1, 0, 0.05, 0)
+moneyCuntLabel.Position = UDim2.new(0, 0, 0.6, 0)
+moneyCuntLabel.BackgroundTransparency = 1
+moneyCuntLabel.TextColor3 = Color3.new(1, 1, 1)
+moneyCuntLabel.Font = Enum.Font.FredokaOne
+moneyCuntLabel.TextScaled = true
+moneyCuntLabel.Parent = background
+
+local player = game.Players.LocalPlayer
+local backpack = player:WaitForChild("Backpack")
+local stats = player:WaitForChild("PlayerStats")
+local money = stats:WaitForChild("Money")
+
+local function updateLACount()
+	local count = 0
+	for _, item in ipairs(backpack:GetChildren()) do
+		if item.Name == "Lucky Arrow" then
+			count += 1
+		end
+	end
+	laCountLabel.Text = "LA Amount: " .. tostring(count)
+end
+
+local function updateMoney()
+	moneyCuntLabel.Text = "Money: " .. tostring(money.Value)
+end
+
+backpack.ChildAdded:Connect(updateLACount)
+backpack.ChildRemoved:Connect(updateLACount)
+money:GetPropertyChangedSignal("Value"):Connect(updateMoney)
+
+updateLACount()
+updateMoney()
